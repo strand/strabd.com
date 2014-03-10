@@ -1,8 +1,8 @@
-%h3.underline Elsewhere
+%h3 Elsewhere
 %ul
   - @elsewhere.each do |name, link|
     %li
-      %a{href: link, rel: "me"}
+      %a{href: link, rel: "me"}<
         = name
 
-Made by Strand.
+%p Made by Strand.
