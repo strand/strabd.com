@@ -1,8 +1,13 @@
-%h3 Elsewhere
-%ul
-  - @elsewhere.each do |name, link|
-    %li
-      %a{href: link, rel: "me"}<
-        = name
+.container
+  .nav
+    %h3 Elsewhere
+    %ul
+      - @elsewhere.each do |name, link|
+        %li
+          %a{href: link, rel: "me"}<
+            = name
 
-%p Made by Strand.
+  .profile
+    %figure.h-card
+      %img.u-photo{alt: "Strand McCutchen", src: "http://farm6.staticflickr.com/5536/9554568223_9598fb8e7d.jpg", rel: "http://www.flickr.com/photos/khaase/9554568223/sizes/m/in/photostream/"}/
+      %figcaption.legend.p-name Strand McCutchen
