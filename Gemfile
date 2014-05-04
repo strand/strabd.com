@@ -11,4 +11,6 @@ end
 group :development do
   gem 'sinatra-reloader', "~> 1.0"
   gem "sass", "~> 3.3.0"
+  gem "pry"
+  gem "shotgun"
 end

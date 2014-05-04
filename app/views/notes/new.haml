@@ -1,0 +1,7 @@
+= "You are on the new notes page"
+
+%form{ action: "/notes", method: "post" }
+  %label
+    %textarea{id: "message", name: "message", cols: "60", rows: "6"}
+  %br
+  %button{ type: "submit" } submit note
