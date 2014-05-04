@@ -2,7 +2,7 @@
   .nav
     %h3 Elsewhere
     %ul
-      - @elsewhere.each do |name, link|
+      - @content["elsewhere"].each do |name, link|
         %li
           %a{href: link, rel: "me"}<
             = name
@@ -12,4 +12,5 @@
       %img.u-photo{alt: "Strand McCutchen", src: "http://farm6.staticflickr.com/5536/9554568223_9598fb8e7d.jpg", rel: "http://www.flickr.com/photos/khaase/9554568223/sizes/m/in/photostream/"}/
       %figcaption.legend.p-name Strand McCutchen
       %a.u-email{rel: "me", href: "mailto:strand@bettermistak.es"} strand@bettermistak.es
-      %p.p-note I am from the future and I am here to help!
+      %p.p-note
+        = @content["slogans"].sample

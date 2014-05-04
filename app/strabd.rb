@@ -4,6 +4,6 @@ require 'haml'
 require 'json'
 
 get '/' do
-  @elsewhere = JSON.parse File.read "app/data/elsewhere.json"
+  @content = JSON.parse File.read "app/data/content.json"
   haml :index
 end
