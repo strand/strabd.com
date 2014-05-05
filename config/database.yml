@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: strabd-development
+  username:
+  password:
+  host: localhost
