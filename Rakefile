@@ -1,5 +1,4 @@
 require "./app/strabd"
-require "sinatra/activerecord/rake"
 
 desc "start localhost version of strabd.com"
 task :start do
