@@ -1,0 +1,10 @@
+%article.h-entry
+  %p.e-content
+    = note.content
+  .published-on
+    Published by
+    %a.p-author.h-card{href: note.author.website}= note.author.name
+    on
+    %time.dt-published{datetime: note.timestamp }
+      = note.human_timestamp
+    %a.u-url.right{href: note.permalink} permalink

@@ -17,7 +17,10 @@ end
 
 desc "seed the database"
 task :seed do
-  # Author.create name: "Strand McCutchen", website: "http://strabd.com/"
+  if Author.all.empty?
+    p "creating Strand as an Author."
+    Author.create name: "Strand McCutchen", website: "http://strabd.com/"
+  end
 end
 
 desc "destructive migration"

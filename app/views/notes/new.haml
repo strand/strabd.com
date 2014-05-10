@@ -2,6 +2,9 @@
 
 %form{ action: "/notes", method: "post" }
   %label
-    %textarea{id: "message", name: "message", cols: "60", rows: "6"}
+    %textarea{id: "content", name: "content", cols: "60", rows: "6"}
   %br
   %button{ type: "submit" } submit note
+%p#counter 0
+
+%script{ src: "../script.js" }
