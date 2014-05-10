@@ -1,11 +1,27 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.3.6)
     backports (3.3.5)
+    buftok (0.2.0)
     diff-lcs (1.2.5)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
+    equalizer (0.0.9)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     haml (4.0.4)
       tilt
+    http (0.5.0)
+      http_parser.rb
+    http_parser.rb (0.6.0)
+    json (1.8.1)
+    memoizable (0.4.2)
+      thread_safe (~> 0.3, >= 0.3.1)
     multi_json (1.8.2)
+    multipart-post (2.0.0)
+    naught (1.0.0)
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
@@ -22,6 +38,7 @@ GEM
     rspec-mocks (2.14.4)
     sass (3.3.0)
       rake
+    simple_oauth (0.2.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -35,14 +52,28 @@ GEM
       tilt (~> 1.3)
     sinatra-reloader (1.0)
       sinatra-contrib
+    thread_safe (0.3.3)
     tilt (1.4.1)
+    twitter (5.8.0)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      equalizer (~> 0.0.9)
+      faraday (~> 0.9.0)
+      http (~> 0.5.0)
+      http_parser.rb (~> 0.6.0)
+      json (~> 1.8)
+      memoizable (~> 0.4.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.2.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   haml (~> 4.0.4)
   rspec (~> 2.14.1)
   sass (~> 3.3.0)
   sinatra (~> 1.4.4)
   sinatra-reloader (~> 1.0)
+  twitter
