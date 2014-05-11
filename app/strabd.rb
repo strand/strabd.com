@@ -10,6 +10,8 @@ Dotenv.load
 
 require 'twitter'
 
+require 'bcrypt'
+
 configure :development, :test, :production do
   db = URI.parse(ENV['DATABASE_URL'] ||
                  'postgres://@localhost/strabd-development')
@@ -25,6 +27,7 @@ configure :development, :test, :production do
 end
 
 require_relative './models/note'
+require_relative './models/user'
 
 twitter_client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV["consumer_key"]
@@ -34,10 +37,50 @@ twitter_client = Twitter::REST::Client.new do |config|
 end
 
 enable :sessions
+secret ||= (rand * 1000000000000000000000000000000000000000000000).to_i.to_s(36)
+set :session_secret, "secret"
+
+helpers do
+  def current_user
+    session[:user_id] ? User.find(session[:user_id]) : nil
+  end
+end
 
 get '/' do
+  # require "pry"; binding.pry
   @content = JSON.parse File.read "app/data/content.json"
   haml :index
+end
+
+get '/login' do
+  redirect '/' if current_user
+  haml :login
+end
+
+post '/login' do
+  @user = User.find_by_name(params[:name])
+  if @user.password == params[:password]
+    session[:user_id] = @user.id
+    p "*" * 50
+    p session
+    p session[:user_id]
+    p session
+    redirect "/"
+  else
+    redirect "/login"
+  end
+end
+
+before '/notes*' do
+  p "*" * 50
+  p session
+  p session[:user_id]
+  p session
+  redirect '/' unless current_user
+end
+
+get '/notes' do
+  "notes"
 end
 
 post '/notes' do

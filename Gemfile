@@ -10,6 +10,8 @@ gem "pg", '~> 0.17.1'
 gem "activerecord", '~> 4.1.0'
 gem "sinatra-activerecord", '~> 2.0.1'
 
+gem 'bcrypt-ruby'
+
 group :test do
   gem 'rspec', "~> 2.14.1"
 end
