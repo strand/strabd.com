@@ -26,8 +26,7 @@ configure :development, :test, :production do
   )
 end
 
-require_relative './models/note'
-require_relative './models/user'
+Dir["./app/models/*.rb"].each {|file| require file }
 
 twitter_client = Twitter::REST::Client.new do |config|
   config.consumer_key        = ENV["consumer_key"]
@@ -37,8 +36,7 @@ twitter_client = Twitter::REST::Client.new do |config|
 end
 
 enable :sessions
-secret ||= (rand * 1000000000000000000000000000000000000000000000).to_i.to_s(36)
-set :session_secret, "secret"
+set :session_secret, ENV['session_secret']
 
 helpers do
   def current_user
