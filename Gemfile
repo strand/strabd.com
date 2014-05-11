@@ -6,6 +6,10 @@ gem 'haml', "~> 4.0.4"
 gem 'dotenv'
 gem 'twitter'
 
+gem "pg", '~> 0.17.1'
+gem "activerecord", '~> 4.1.0'
+gem "sinatra-activerecord", '~> 2.0.1'
+
 group :test do
   gem 'rspec', "~> 2.14.1"
 end
@@ -13,4 +17,6 @@ end
 group :development do
   gem 'sinatra-reloader', "~> 1.0"
   gem "sass", "~> 3.3.0"
+  gem "pry"
+  gem "shotgun"
 end
