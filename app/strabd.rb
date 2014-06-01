@@ -6,6 +6,7 @@ get '/' do
 end
 
 get '/twiends' do
+  redirect '/login' unless current_user
   @twiends = TwitterFriend.all
   @twiends = @twiends.map { |friend| friend.data }
   @twiends = @twiends.sort_by do |friend|
@@ -15,6 +16,7 @@ get '/twiends' do
 end
 
 get '/twiends/populate' do
+  redirect '/login' unless current_user
   twitter_client.friends.each do |friend|
     if twiend = TwitterFriend.find_by(twitter_id: friend.id)
       twiend.update_attributes data: friend.to_h
