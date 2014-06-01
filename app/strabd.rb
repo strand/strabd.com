@@ -1,48 +1,4 @@
-require 'sinatra'
-require 'sinatra/reloader' if development?
-require 'sinatra/activerecord'
-
-require 'haml'
-require 'json'
-
-require 'dotenv'
-Dotenv.load
-
-require 'twitter'
-
-require 'bcrypt'
-
-configure :development, :test, :production do
-  db = URI.parse(ENV['DATABASE_URL'] ||
-                 'postgres://@localhost/strabd-development')
-
-  ActiveRecord::Base.establish_connection(
-    :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
-    :host     => db.host,
-    :username => db.user,
-    :password => db.password,
-    :database => db.path[1..-1],
-    :encoding => 'utf8'
-  )
-end
-
-Dir["./app/models/*.rb"].each {|file| require file }
-
-twitter_client = Twitter::REST::Client.new do |config|
-  config.consumer_key        = ENV["consumer_key"]
-  config.consumer_secret     = ENV["consumer_secret"]
-  config.access_token        = ENV["access_token"]
-  config.access_token_secret = ENV["access_token_secret"]
-end
-
-enable :sessions
-set :session_secret, ENV['session_secret']
-
-helpers do
-  def current_user
-    session[:user_id] ? User.find(session[:user_id]) : nil
-  end
-end
+require_relative "config"
 
 get '/' do
   @content = JSON.parse File.read "app/data/content.json"
@@ -50,7 +6,23 @@ get '/' do
 end
 
 get '/twiends' do
-  require "pry"; binding.pry
+  @twiends = TwitterFriend.all
+  @twiends = @twiends.map { |friend| friend.data }
+  @twiends = @twiends.sort_by do |friend|
+    friend[:followers_count].to_f / friend[:friends_count]
+  end.reverse
+  haml :twiends_index
+end
+
+get '/twiends/populate' do
+  twitter_client.friends.each do |friend|
+    if twiend = TwitterFriend.find_by(twitter_id: friend.id)
+      twiend.update_attributes data: friend.to_h
+    else
+      TwitterFriend.create twitter_id: friend.id, data: friend.to_h
+    end
+  end
+  redirect "/twiends"
 end
 
 get '/login' do

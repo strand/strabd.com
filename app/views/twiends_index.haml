@@ -1,0 +1,17 @@
+.twiends
+  = @twiends.count
+  %table
+    %tbody
+      - @twiends.each do |friend|
+        %tr{ class: ("location-enabled" if friend[:geo_enabled])}
+          %td
+            %img{ src: friend[:profile_image_url] }
+          %td= friend[:name]
+          %td
+            - link = "http://twitter.com/#{friend[:screen_name]}"
+            %a{ href: link }<
+              = friend[:screen_name]
+          %td
+            = friend[:location]
+          %td
+            = friend[:followers_count].to_f / friend[:friends_count]
