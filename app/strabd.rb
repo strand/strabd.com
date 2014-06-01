@@ -45,9 +45,12 @@ helpers do
 end
 
 get '/' do
-  # require "pry"; binding.pry
   @content = JSON.parse File.read "app/data/content.json"
   haml :index
+end
+
+get '/twiends' do
+  require "pry"; binding.pry
 end
 
 get '/login' do
@@ -86,4 +89,15 @@ post '/notes' do
     twitter_client.update @note.twitter_message
   end
   redirect "/notes/new"
+end
+
+get '/:possible_id' do
+  if @uniqueable = ShortId.find_by_short_id(params[:possible_id])
+
+    @uniqueable =  ShortId.find_by_short_id(params[:possible_id])
+    redirect  "/#{@uniqueable.short_id.uniqueable_type.downcase}s" +
+              "/#{@uniqueable.short_id.uniqueable_id}"
+  else
+    pass
+  end
 end

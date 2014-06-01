@@ -5,7 +5,5 @@ class Note < ActiveRecord::Base
     content[0..119] + " (strabd.com #{short_id})"
   end
 
-  def short_id
-    id.to_s(36)
-  end
+  has_one :short_id, as: :uniqueable
 end
