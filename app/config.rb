@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
+require 'sinatra/json'
 
 require 'haml'
 require 'json'
@@ -41,5 +42,13 @@ set :session_secret, ENV['session_secret']
 helpers do
   def current_user
     session[:user_id] ? User.find(session[:user_id]) : nil
+  end
+
+  def display(template, locals)
+    case params[:format]
+    when "json" then json locals
+    when "html" then haml template, locals: locals, layout: false
+    else             haml template, locals: locals
+    end
   end
 end

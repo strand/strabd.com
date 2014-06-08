@@ -1,0 +1,14 @@
+%div{ class: "friend" + (friend[:geo_enabled] ? " location-enabled" : "") }
+  %span.image
+    %img{ src: friend[:profile_image_url] }
+  %span.name
+    = friend[:name]
+  %span.link
+    - link = "http://twitter.com/#{friend[:screen_name]}"
+    %a{ href: link }<
+      = friend[:screen_name]
+  %span.location
+    = friend[:location]
+  %span.follower-ratio
+    - if friend[:followers_count] && friend[:friends_count]
+      = friend[:followers_count].to_f / friend[:friends_count]
