@@ -33,9 +33,10 @@ get '/:possible_id' do
   end
 end
 
-before '/*' do
-  redirect '/' unless current_user
-end
+# This is infinite looping on the home page
+# before '/*' do
+#   redirect '/' unless current_user
+# end
 
 get '/twiends' do
   @twiends = TwitterFriend.all

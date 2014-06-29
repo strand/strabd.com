@@ -1,6 +1,11 @@
 %html
   %head
     %link{rel: :stylesheet, type: :"text/css", href: "/style.css"}
+    %script{src: "application.js"}
+    - if settings.development?
+      %script{src: "mousetrap.js"}
+    - else
+      %script{src: "mousetrap.min.js"}
   %body
     .container
       = yield
