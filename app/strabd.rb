@@ -47,7 +47,12 @@ get '/twiends' do
   haml :twiends_index
 end
 
+def only_digits?(string)
+  string.to_i != 0
+end
+
 get '/twiends/:id.?:format?' do
+  pass unless only_digits? params[:id]
   if twiend = TwitterFriend.find(params[:id]).data
     display :twiends_show, friend: twiend
   else
@@ -56,7 +61,8 @@ get '/twiends/:id.?:format?' do
 end
 
 get '/twiends/populate' do
-  twitter_client.friends.each do |friend|
+  require "pry"; binding.pry
+  TwitterClient.new.friends.each do |friend|
     if twiend = TwitterFriend.find_by(twitter_id: friend.id)
       twiend.update_attributes data: friend.to_h
     else

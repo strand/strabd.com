@@ -1,12 +1,13 @@
 %html
   %head
     %link{rel: :stylesheet, type: :"text/css", href: "/style.css"}
-    %script{src: "application.js"}
+    %script{src: "/application.js"}
     - if settings.development?
-      %script{src: "mousetrap.js"}
+      %script{src: "/mousetrap.js"}
     - else
-      %script{src: "mousetrap.min.js"}
+      %script{src: "/mousetrap.min.js"}
   %body
     .container
       = yield
+      #friend
       %a.footer{href: "https://github.com/strand/strabd.com"} view source

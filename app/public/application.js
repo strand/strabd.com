@@ -1,12 +1,8 @@
 window.onload = function() {
-  Mousetrap.bind('?', function() {
-    var helpMessage = "Use the following keys to navigate\n\
-    a, h, or ← mean go back\n\
-    d, l, or → mean go forward\n\
-    w, j, or ↑ mean rate up\n\
-    s, k, or ↓ mean rate up"
-    alert(helpMessage);
-  });
+  Mousetrap.bind('?',      function() { location.href = '#help'; });
+  Mousetrap.bind('esc',    function() { location.href = '#' });
+  Mousetrap.bind('space',  function() { location.href = '#twiend' });
+  Mousetrap.bind('enter',  function() { banana() });
 
   Mousetrap.bind('a',      function() { console.log('left'); });
   Mousetrap.bind('h',      function() { console.log('left'); });
@@ -21,3 +17,23 @@ window.onload = function() {
   Mousetrap.bind('k',      function() { console.log('down'); });
   Mousetrap.bind('down',   function(e) { e.preventDefault(); console.log('down'); });
 };
+
+function banana() {
+  var response;
+  var request = new XMLHttpRequest();
+  var friendId = Math.floor(Math.random() * 289) + 1
+  request.open('GET', '/twiends/' + friendId + ".html", true);
+
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400){
+      document.getElementById("friend").innerHTML = this.responseText;
+    } else {
+      console.log("request error");
+    }
+  };
+
+  request.onerror = function() {
+    console.log("connection error");
+  };
+  request.send();
+}

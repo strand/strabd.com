@@ -10,3 +10,8 @@ desc "open a console"
 task :console do
   exec "pry -r './app/strabd.rb'"
 end
+
+desc "compile styles"
+task :style do
+  `sass app/public/style.sass app/public/style.css`
+end
